@@ -1,0 +1,5 @@
+const CACHE="obsidian-chess-v9-skins-elo";
+const CORE=["./","./index.html","./style.css","./app.js","./supabase-config.js","./supabase-social.js","./manifest.json","./icon.svg","./pieces/wk.png","./pieces/wq.png","./pieces/wr.png","./pieces/wb.png","./pieces/wn.png","./pieces/wp.png","./pieces/bk.png","./pieces/bq.png","./pieces/br.png","./pieces/bb.png","./pieces/bn.png","./pieces/bp.png"];
+self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)));self.skipWaiting();});
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
+self.addEventListener("fetch",e=>{const u=new URL(e.request.url);if(e.request.method!=="GET"||u.origin!==location.origin)return;e.respondWith(caches.match(e.request).then(cached=>cached||fetch(e.request).then(res=>{if(res.ok){const clone=res.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));}return res;}).catch(()=>caches.match("./index.html"))));});

@@ -1,0 +1,9 @@
+{
+  "appId": "com.obsidianchess.club",
+  "appName": "Obsidian Chess",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}
